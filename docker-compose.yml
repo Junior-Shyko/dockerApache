@@ -1,0 +1,43 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+    web:
+        build: . 
+        #image: ubuntu:bionic 
+        container_name: admin_web
+        working_dir: /var/www/html/
+        volumes:
+            - .:/var/www/html/
+        ports:
+            - "4000:80"
+
+    mysql:
+        image: mysql:5.7
+        container_name: admin_db
+        working_dir: /public
+        volumes:
+            - .:/public
+        environment:
+            - MYSQL_ROOT_PASSWORD=livre
+            - MYSQL_DATABASE=laravel6
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=livre
+        ports:
+            - "4002:3306"
+            
+    # phpmyadmin:
+    #     restart: always
+    #     image: phpmyadmin/phpmyadmin
+    #     container_name: vue_phpmyadmin
+    #     hostname: phpmyadmin
+    #     depends_on: 
+    #         - mysql
+    #     ports:
+    #         - 3033:80
+    #     environment:
+    #         - PMA_ARBITRARY=1   
+    #     volumes:
+    #         - ~/docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php              
